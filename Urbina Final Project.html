@@ -150,21 +150,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> numeric_cols) {</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> renewable <span class="sc">%&gt;%</span></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(country, YearGroup, energy_type) <span class="sc">%&gt;%</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">AverageValue =</span> <span class="fu">mean</span>(.data[[col]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Metric =</span> col)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  summary_list[[col]] <span class="ot">&lt;-</span> result</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>renew2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(summary_list)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>renew2 <span class="ot">&lt;-</span> renew2 <span class="sc">%&gt;%</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Metric,</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> AverageValue</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#renewable$gdp &lt;- comma(renewable$gdp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">AverageValue =</span> <span class="fu">mean</span>(.data[[col]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>              <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Metric =</span> col)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  summary_list[[col]] <span class="ot">&lt;-</span> result</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>renew2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(summary_list)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>renew2 <span class="ot">&lt;-</span> renew2 <span class="sc">%&gt;%</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Metric,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> AverageValue</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#renewable$gdp &lt;- comma(renewable$gdp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data set used, has over 50 input variables, excluding our predicting variable - installed capacity. Because of this, I will approach my research question in two ways: (1) First I will use the PCA model on a broad and specified variable and then (2) follow my learning outcomes with a generalized additive model.</p>
 <p>Grouping by YearGroup (such as 2000–2004, 2005–2009) helps smooth out year-to-year fluctuations and highlight clearer, more consistent trends in the data. This not only makes the dataset easier to understand and compare, especially across countries with missing years, but also aligns with how governments and organizations typically plan and report in 5-year intervals. In the context of PCA, grouping by YearGroup reduces noise and the total number of observations, helping PCA capture broader patterns rather than short-term variability. This leads to more meaningful insights when analyzing energy trends over time.</p>
@@ -576,46 +577,16 @@ number_of_renewable_energy_publications                     political_stability
 <p>Lets look at the table above:<br>
 Although the principal components from the PCA do not directly measure a country’s renewable energy output, they uncover key themes that influence how effectively a country can expand its installed renewable energy capacity. The first principal component (PC1) is primarily driven by factors like public awareness,educational level,technology transfer agreements,urbanization rate, and R&amp;D expenditure. These loadings suggest that PC1 captures a theme of national capacity-building and public readiness. In other words, countries that score highly on PC1 tend to have populations that are more educated, more urbanized, and more aware of renewable energy issues (an assumption), paired with governments and institutions that are actively investing in research, innovation, and technology sharing. This mix reflects a broader knowledge-driven, innovation-consistent environment, which is often a prerequisite for developing renewable infrastructure effectively and sustainable.</p>
 <p>The second principal component (PC2), meanwhile, shows a different kind of dynamic. It contrasts variables like renewable energy education programs and renewable energy targets (positive loadings) against others such as educational level and technology transfer agreements (negative loadings). This suggests that PC2 may represent a policy-driven versus institutional-capacity divide. Countries with high PC2 scores might be focusing more on government-led renewable energy programs and formal targets, possibly compensating for weaker existing institutional or educational infrastructure. Contrastly, countries with low PC2 scores may already have stronger baseline capacity, via education and technical projects, but rely less on strong government initiatives to drive change.</p>
-<p>Going back to my original question on the United States and its International counterparts.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>countries_of_interest <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"USA"</span>, <span class="st">"India"</span>, <span class="st">"China"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pca_scores <span class="ot">&lt;-</span> renewable_w_PC <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries_of_interest) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, YearGroup, score_pc1, score_pc2)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(renewable_w_PC, <span class="fu">aes</span>(<span class="at">x =</span> score_pc1, <span class="at">y =</span> score_pc2)) <span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> pca_scores, <span class="fu">aes</span>(<span class="at">x =</span> score_pc1, <span class="at">y =</span> score_pc2, </span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">color =</span> country), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> pca_scores, <span class="fu">aes</span>(<span class="at">x =</span> score_pc1, <span class="at">y =</span> score_pc2, </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">label =</span> country), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"PCA Scores for Renewable Energy Variables"</span>,</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Positions of PC1 and PC2"</span>,</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Principal Component 1 (PC1)"</span>,</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Principal Component 2 (PC2)"</span>,</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Country"</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="pca-with-selected-variables" class="level3">
 <h3 class="anchored" data-anchor-id="pca-with-selected-variables">PCA With Selected Variables</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rn_rq_subset <span class="ot">&lt;-</span> rn_rq <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, YearGroup, energy_type)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>, as.numeric)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>pca_rn_rq <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(rn_rq_subset, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC1"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rn_rq_subset <span class="ot">&lt;-</span> rn_rq <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, YearGroup, energy_type)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>, as.numeric)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pca_rn_rq <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(rn_rq_subset, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC1"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     solar_irradiance                   political_stability 
                           -0.39381280                           -0.35235404 
@@ -638,7 +609,7 @@ Although the principal components from the PCA do not directly measure a country
              renewable_energy_patents 
                            0.41993289 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pca_rn_rq<span class="sc">$</span>x[,<span class="st">"PC1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pca_rn_rq<span class="sc">$</span>x[,<span class="st">"PC1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1]  1.055316554 -0.135415192  0.244085822 -2.640283623  2.788119533
   [6]  0.659518016 -0.606832330  0.151878018 -1.493310597  1.078086238
@@ -691,10 +662,10 @@ Although the principal components from the PCA do not directly measure a country
 [241] -0.377562009  1.085928834  3.018574065  0.582686327  7.170968793
 [246]  0.415766775  0.610082444 -0.519862220 -0.210539426 -0.335791354</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rn_rq_w_PC <span class="ot">&lt;-</span> renew2 <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score_pc1 =</span> pca_rn_rq<span class="sc">$</span>x[, <span class="st">"PC1"</span>])</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(pca_rn_rq<span class="sc">$</span>rotation[,<span class="st">"PC2"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rn_rq_w_PC <span class="ot">&lt;-</span> renew2 <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score_pc1 =</span> pca_rn_rq<span class="sc">$</span>x[, <span class="st">"PC1"</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(pca_rn_rq<span class="sc">$</span>rotation[,<span class="st">"PC2"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                    educational_level                      solar_irradiance 
                           -0.44776349                           -0.34768602 
@@ -717,25 +688,25 @@ public_private_partnerships_in_energy                    energy_consumption
               energy_storage_capacity 
                            0.45087723 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rn_rq_w_PC <span class="ot">&lt;-</span> rn_rq_w_PC <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score_pc2 =</span> pca_rn_rq<span class="sc">$</span>x[, <span class="st">"PC2"</span>])</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>pc1_loadings_rn_rq <span class="ot">&lt;-</span> <span class="fu">round</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC1"</span>], <span class="dv">3</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>pc2_loadings_rn_rq <span class="ot">&lt;-</span> <span class="fu">round</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC2"</span>], <span class="dv">3</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>pc_rn_rq_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC1 =</span> pc1_loadings_rn_rq,</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC2 =</span> pc2_loadings_rn_rq</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(PC1))) <span class="sc">%&gt;%</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rn_rq_w_PC <span class="ot">&lt;-</span> rn_rq_w_PC <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score_pc2 =</span> pca_rn_rq<span class="sc">$</span>x[, <span class="st">"PC2"</span>])</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>pc1_loadings_rn_rq <span class="ot">&lt;-</span> <span class="fu">round</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC1"</span>], <span class="dv">3</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>pc2_loadings_rn_rq <span class="ot">&lt;-</span> <span class="fu">round</span>(pca_rn_rq<span class="sc">$</span>rotation[, <span class="st">"PC2"</span>], <span class="dv">3</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>pc_rn_rq_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC1 =</span> pc1_loadings_rn_rq,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC2 =</span> pc2_loadings_rn_rq</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(PC1))) <span class="sc">%&gt;%</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(pc_rn_rq_table, <span class="dv">10</span>), </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Subset Top 10 Variables Contributing to </span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">      Principal Component 1 and 2"</span>, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="st">"lc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(pc_rn_rq_table, <span class="dv">10</span>), </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Subset Top 10 Variables Contributing to </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">      Principal Component 1 and 2"</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="st">"lc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Subset Top 10 Variables Contributing to Principal Component 1 and 2</caption>
@@ -809,29 +780,29 @@ public_private_partnerships_in_energy                    energy_consumption
 <h2 class="anchored" data-anchor-id="generalized-additive-model">Generalized Additive Model</h2>
 <p>A Generalized Additive Model (GAM) is a flexible statistical tool that works similar to linear regression. While traditional regression fits straight lines between variables, GAM allows for smooth, curved relationships that better reflect the complexity of real-world data. This means it can present patterns that wouldn’t show up if we assumed everything followed a simple straight line. For this renewable energy analysis, where the goal is to predict a country’s installed renewable energy capacity based on factors like policy, infrastructure, and economic conditions, GAM is a clear choice. These factors don’t always affect outcomes in a straight-line.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gam_model <span class="ot">&lt;-</span> <span class="fu">gam</span>(installed_capacity_mw <span class="sc">~</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(gdp) <span class="sc">+</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(electricity_prices) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_consumption) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(government_policies) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(renewable_energy_targets) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_subsidies) <span class="sc">+</span> </span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_market_liberalization) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(public_private_partnerships_in_energy) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(political_stability) <span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(regulatory_quality) <span class="sc">+</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(corruption_perception_index) <span class="sc">+</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(educational_level) <span class="sc">+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(renewable_energy_patents) <span class="sc">+</span> </span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(technology_transfer_agreements) <span class="sc">+</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(number_of_research_institutions) <span class="sc">+</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(grid_integration_capability) <span class="sc">+</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_storage_capacity) <span class="sc">+</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(solar_irradiance) <span class="sc">+</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(hydro_potential),</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> renew2)</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gam_model <span class="ot">&lt;-</span> <span class="fu">gam</span>(installed_capacity_mw <span class="sc">~</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(gdp) <span class="sc">+</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(electricity_prices) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_consumption) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(government_policies) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(renewable_energy_targets) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_subsidies) <span class="sc">+</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_market_liberalization) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(public_private_partnerships_in_energy) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(political_stability) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(regulatory_quality) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(corruption_perception_index) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(educational_level) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(renewable_energy_patents) <span class="sc">+</span> </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(technology_transfer_agreements) <span class="sc">+</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(number_of_research_institutions) <span class="sc">+</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(grid_integration_capability) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(energy_storage_capacity) <span class="sc">+</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(solar_irradiance) <span class="sc">+</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">s</span>(hydro_potential),</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> renew2)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Family: gaussian 
@@ -896,32 +867,32 @@ GCV = 2.1468e+07  Scale est. = 1.6942e+07  n = 250</code></pre>
 <p>Without the background knowledge of renewable investment, it would seem that investing in renewable when also having high energy prices in counter intuitive. Why wouldn’t a country simply subsidies energy prices with the investment funds. However, over the last several years, solar energy became cheaper to produce and export to households compared to electricity generated from fossil fuels, so countries and companies with the capital to invest in renewable energy infrastructure are doing so.</p>
 <p>The below is a depiction of the GAM analysis and the shaping of the graph (smooth versus linear)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam_model, <span class="at">pages =</span> <span class="dv">4</span>, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam_model, <span class="at">pages =</span> <span class="dv">4</span>, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Urbina-Final-Project_files/figure-html/unnamed-chunk-11-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
